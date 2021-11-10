@@ -1,15 +1,10 @@
 const Product = require ('../models/productmodel')
-const multer = require('multer')
-const upload = multer({dest:'uploads/'})
+const productroute = require("../routes/product")
 // Showing the list of Products 
 
 const Productslist = async (req,res,next)=>{
    
     try {
-        
-    //  const prod = Product.find()
-    //  res.send(prod)
-
     const jk = await Product.find()
     return res.json(jk)
    }
@@ -20,7 +15,7 @@ const Productslist = async (req,res,next)=>{
 
 // Showing a Single product by id 
  
-const ProductById = (req,res,next)=>{
+const GetProductById = (req,res,next)=>{
     try{
     let prodid = req.body.prodid
     const ans = Product.findById(prodid)
@@ -33,19 +28,21 @@ const ProductById = (req,res,next)=>{
 
 // Add a product to database
 
-const AddProduct = (upload.single('productImage'), async (req,res,next)=>{
+const AddProduct = ( async (req,res,next)=>{
     try{
         const prodid = req.token_data._id
         console.log("hello",prodid)
-        const naya = await Product.findById({_id:prodid})
+        const New = await Product.findById({_id:prodid})
         
-        if(!naya){
+        if(!New){
             let newproduct = await new Product ({
                 userId : prodid,
                 name : req.body.name,
                 category : req.body.category,
-                price : req.body.price
+                price : req.body.price,
+
             })
+            console.log(req.file)
             const ann = newproduct.save()
             res.send("product added successfully"+ann)
             console.log(prodid+" has updated a product")
@@ -67,14 +64,16 @@ const AddProduct = (upload.single('productImage'), async (req,res,next)=>{
 }
 // get product by id
 )
-const GetProductById = async (req,res,next)=>{
+const GetUserProduct = async (req,res,next)=>{
     try{
     // const prodbyid = req.params._id
     // const naya = await Product.findById(prodbyid)
     const prodbyid = req.token_data._id
     console.log(prodbyid)
-    const naya = await Product.find({userId:prodbyid})
-    return res.send(naya)
+    const New = await Product.find({userId:prodbyid})
+    console.log(New);
+    return res.send(New)
+    
     }
     catch(err) {
         res.send("Ops an error occured : "+err)
@@ -109,8 +108,8 @@ const UpdateProductById = (req,res,next)=>{
 const DeleteProduct = async (req,res,next)=>{
     try{
         const prodname = req.token_data.name
-        const naya = await Product.findOne({name:prodname})
-        if (naya){
+        const New = await Product.findOne({name:prodname})
+        if (New){
         let ProdId = req.body.name
         Product.findOneAndRemove(ProdId)
         res.send("product deleted successsfully !")
@@ -128,7 +127,7 @@ const DeleteProduct = async (req,res,next)=>{
 
 module.exports={
     Productslist,
-    ProductById,
+    GetUserProduct,
     AddProduct,
     UpdateProductById,
     DeleteProduct,

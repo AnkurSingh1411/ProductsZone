@@ -2,11 +2,13 @@ require("dotenv").config()
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+const multer = require("multer")
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const {authpage} = require('./middleware')
 require('./mongo')
 require('./passport_setup')
+require('./error_handler')
 const cookieSession = require('cookie-session');
 
 var indexRouter = require('./routes/index');
@@ -14,8 +16,9 @@ var indexRouter = require('./routes/index');
 const ProductRouter = require('./routes/product');
 const authrouter = require('./routes/authroute')
 const passport = require ("passport");
-const { profile } = require("console");
-const { resolveSoa } = require("dns");
+const errhandler = require("./error_handler");
+// const { profile } = require("console");
+// const { resolveSoa } = require("dns");
 var app = express();
 
 // view engine setup
@@ -40,7 +43,8 @@ app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 app.use('/api/product', ProductRouter);
 app.use('/auth',authrouter);
-
+app.use('/profile', express.static('upload/images'));
+app.use(errhandler)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -63,6 +67,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.send('error',err.message);
 });
+
 
 
 module.exports = app

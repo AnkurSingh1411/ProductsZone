@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
+const multer = require('multer')
 const Schema = mongoose.Schema
+
 
 const ProductSchema = new Schema({
     name:{
@@ -14,6 +16,10 @@ const ProductSchema = new Schema({
         type : Number,
         required : true
     },
+    // productImage : {
+    //     type : String,
+    //     required : true
+    // },
     userId : {
         type : String
     },
