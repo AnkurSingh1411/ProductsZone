@@ -26,9 +26,10 @@ const GetProductById = (req,res,next)=>{
     }
 }
 
-// Add a product to database
 
-const AddProduct = ( async (req,res,next)=>{
+// For Logged-in users 
+
+const AddUserProduct = ( async (req,res,next)=>{
     try{
         const prodid = req.token_data._id
         console.log("hello",prodid)
@@ -45,25 +46,20 @@ const AddProduct = ( async (req,res,next)=>{
             console.log(req.file)
             const ann = newproduct.save()
             res.send("product added successfully"+ann)
-            console.log(prodid+" has updated a product")
+            console.log(prodid+'has updated a new product')
         
         }
-    //     let newproduct = new Product ({
-    //         name : req.body.name,
-    //         category : req.body.category,
-    //         price : req.body.price
-    //     })
-    //     const ann = newproduct.save()
-    //     res.send("product added successfully")
-    //     console.log("product added successfully")
+    
     }
     catch(err){
         res.send("An error Occured :" + err)
 
     }
 }
-// get product by id
+
 )
+// get product by id
+
 const GetUserProduct = async (req,res,next)=>{
     try{
     // const prodbyid = req.params._id
@@ -125,11 +121,27 @@ const DeleteProduct = async (req,res,next)=>{
     }
 }
 
+// This api includes user roles
+
+const AddNewProduct = (async(req,res,next)=>{
+    try{
+    const addproducts= new Product ({
+        name : req.body.name,
+        category : req.body.category,
+        price : req.body.price
+    })
+    const addedprod = await addproducts.save()
+    res.json("your products added succesfully"+ addedprod)
+}catch (err){
+    res.json("ops you got an err  : "+err)
+}    
+})
 module.exports={
     Productslist,
     GetUserProduct,
-    AddProduct,
+    AddUserProduct,
     UpdateProductById,
     DeleteProduct,
-    GetProductById
+    GetProductById,
+    AddNewProduct
 }

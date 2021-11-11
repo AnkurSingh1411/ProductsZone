@@ -1,11 +1,20 @@
-const authPage = (permissions)=>{
-    return (req,res,next)=>{
-        const UserRole = req.body.name
-        // const UserRole = req.b
-        if (permissions.includes(UserRole)){
-            next()
-        }else{
-            return res.status(401).json("You don't have permissions") }
-        }    
+require('./app')
+function setUser(req,res,next){
+    const userId = req.body.userId
+    if (userId){
+        req.user = user.find(user=>user.id===userId)
+
+    }
+    next()
 }
-module.exports= authPage
+
+function  authUser(req,res,next){
+    if (req.user==null){
+        res.status(403)
+        res.json("you need to sign in to open this page")
+    }
+}
+
+module.exports = {
+    authUser
+}
