@@ -16,13 +16,10 @@ const ProductSchema = new Schema({
         type : Number,
         required : true
     },
-    // productImage : {
-    //     type : String,
-    //     required : true
-    // },
     userId : {
         type : String
     },
+  
 
 },{timestamps:true})
 const Product = mongoose.model('products',ProductSchema)

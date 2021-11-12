@@ -5,8 +5,9 @@ const productcontroller = require("../controllers/productcontroller")
 const {authenticateToken} = require("../jwt/jwt_operations")
 const multer = require('multer')
 const path = require("path");
-const errhandler = require('../error_handler')
-const {authUser} = require('../middleware')
+const errhandler = require('../error_handler');
+const {authProducts,authPage} = require("../middleware")
+
 
 
 // router.get('/prod',productcontroller.ProductById)
@@ -35,12 +36,12 @@ router.post('/upload',upload.single('profile'),(req,res)=>{
 })
 
 
-router.get('/',authenticateToken,productcontroller.Productslist)
+router.get('/',productcontroller.Productslist)
 router.post('/addproduct',upload.single('profile'),authenticateToken,productcontroller.AddUserProduct)
 router.post('/deleteproduct/',authenticateToken,productcontroller.DeleteProduct)
 router.post('/updateproduct',productcontroller.UpdateProductById)
 router.get('/produ',authenticateToken,productcontroller.GetUserProduct)
-router.get('/prodbyid/:id',productcontroller.GetProductById)
-router.post('/newprod',authUser,productcontroller.AddNewProduct)
+router.get('/prodbyid/:id',authProducts,productcontroller.GetProductById)
+router.post('/newprod',authPage(['Vendor']),productcontroller.AddNewProduct)
 
 module.exports = router

@@ -1,5 +1,6 @@
 const Product = require ('../models/productmodel')
 const productroute = require("../routes/product")
+
 // Showing the list of Products 
 
 const Productslist = async (req,res,next)=>{
@@ -121,7 +122,7 @@ const DeleteProduct = async (req,res,next)=>{
     }
 }
 
-// This api includes user roles
+// This api allows a Vendor to add the product
 
 const AddNewProduct = (async(req,res,next)=>{
     try{
@@ -131,7 +132,7 @@ const AddNewProduct = (async(req,res,next)=>{
         price : req.body.price
     })
     const addedprod = await addproducts.save()
-    res.json("your products added succesfully"+ addedprod)
+    res.send("your products added succesfully"+ addedprod)
 }catch (err){
     res.json("ops you got an err  : "+err)
 }    
