@@ -124,7 +124,8 @@ const DeleteProduct = async (req,res,next)=>{
 
 // This api allows a Vendor to add the product
 
-const AddNewProduct = (async(req,res,next)=>{
+
+const AddVendorProduct = (async(req,res,next)=>{
     try{
     const addproducts= new Product ({
         name : req.body.name,
@@ -137,6 +138,8 @@ const AddNewProduct = (async(req,res,next)=>{
     res.json("ops you got an err  : "+err)
 }    
 })
+
+
 module.exports={
     Productslist,
     GetUserProduct,
@@ -144,5 +147,5 @@ module.exports={
     UpdateProductById,
     DeleteProduct,
     GetProductById,
-    AddNewProduct
+    AddVendorProduct
 }

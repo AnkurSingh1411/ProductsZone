@@ -26,12 +26,20 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+
+// mentioning seedAdmin function here 
+
+const {seedAdmin} = require('./controllers/authcontroller')
+console.log(seedAdmin())
 app.use(
   cookieSession({
     name: "google-auth-session",
     keys: ["key1", "key2"],
   })
 );
+
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(logger('dev'));

@@ -11,6 +11,7 @@ const {authProducts,authPage} = require("../middleware")
 
 
 // router.get('/prod',productcontroller.ProductById)
+
 // Storage engine
 const storage = multer.diskStorage({
     destination:"upload/images",
@@ -36,12 +37,12 @@ router.post('/upload',upload.single('profile'),(req,res)=>{
 })
 
 
-router.get('/',productcontroller.Productslist)
+router.get('/',authPage(['Admin']),productcontroller.Productslist)
 router.post('/addproduct',upload.single('profile'),authenticateToken,productcontroller.AddUserProduct)
 router.post('/deleteproduct/',authenticateToken,productcontroller.DeleteProduct)
 router.post('/updateproduct',productcontroller.UpdateProductById)
 router.get('/produ',authenticateToken,productcontroller.GetUserProduct)
-router.get('/prodbyid/:id',authProducts,productcontroller.GetProductById)
-router.post('/newprod',authPage(['Vendor']),productcontroller.AddNewProduct)
+router.get('/prodbyid/:id',productcontroller.GetProductById)
+router.post('/newprod',authPage(['Vendor']),authenticateToken,productcontroller.AddVendorProduct)
 
 module.exports = router

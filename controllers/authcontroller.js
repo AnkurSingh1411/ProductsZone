@@ -3,6 +3,40 @@ const bcrypt = require("bcryptjs")
 // const jwt = require("jsonwebtoken")
 const {generateAccessToken}=require('../jwt/jwt_operations')
 
+// Just for an example
+
+exports.seedAdmin = ()=>{
+    // check if there is an admin account
+    let password = req.body.password
+    usermodel.findOne({role : "admin"}, (err,admin)=>{
+        if (err) throw err 
+        if (admin) {
+            return "admin account already exists"
+        }
+        usermodel.create({
+            name : req.body.name,
+            email : req.body.email,
+            phone : req.body.phone,
+            role : 'admin'
+
+        },(err,user)=>{
+            if (err) throw err 
+            bcrypt.genSalt(10,(err,salt)=>{
+                if (err) throw err
+                bcrypt.hash(password,salt,(err,hash)=>{
+                    if (err) throw err 
+                    user.password = hash
+                    user.save((err,savedUser)=>{
+                        if (err) throw err 
+                        return res.json("admin account created")
+                    })
+                })
+            })
+        })
+    })
+}
+
+
 const register = (req,res,next)=>{
     bcrypt.hash(req.body.password,10,function(err,hashedpass){
         if (err){
