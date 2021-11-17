@@ -1,11 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/',function(req, res, next) {
   res.send("<h1>Node js passport google auth</h1>")
 });
 
-
 module.exports = router;
-

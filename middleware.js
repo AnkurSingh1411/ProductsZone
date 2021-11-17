@@ -1,11 +1,15 @@
-const User = require('./models/authmodel')
-const Usermodel = require('./models/authmodel')
+const su= require("./controllers/authcontroller");
+// const { findById } = require("./models/authmodel");
+const User = require('./models/authmodel') 
 
 
-const authPage = (permissions) =>{
-    return (req,res,next) => {
-        const userrole = req.body.role
-        if (permissions.includes(userrole)){
+// Updated Middleware for the permission of a role wheather its admin or a Vendor
+
+const authpermission = (permissions) =>{
+    return async (req,res,next) => {
+        const userrole = await User.findById(req.token_data._id);
+        console.log("the role is"+ userrole)
+        if (permissions.includes(userrole.role)){
             next()
         }else{
             return res.status(401).json("Sorry! you don't have permissions")
@@ -14,17 +18,18 @@ const authPage = (permissions) =>{
 
 }
 
-const authProducts = (req,res,next) =>{
-    const ProdId = req.params.id
-    if (Usermodel._id.includes(ProdId)){
-        next()
-    }else{
-        return res.status(401).json("you are not allowed to fetch the data")
+
+const authRole  = (role)=>{
+return (req,res,next)=>{
+    if (req.user.role!==role){
+        res.status(401)
+        return res.send("not allowed!")
     }
-    
+    next()
+}
 }
 
-module.exports = {
-    authPage,
-    authProducts
+module.exports= {
+    authRole,
+    authpermission
 }

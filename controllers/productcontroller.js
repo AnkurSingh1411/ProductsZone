@@ -29,36 +29,38 @@ const GetProductById = (req,res,next)=>{
 
 
 // For Logged-in users 
-
 const AddUserProduct = ( async (req,res,next)=>{
     try{
-        const prodid = req.token_data._id
+        const prodid = req.token_data
+
         console.log("hello",prodid)
         const New = await Product.findById({_id:prodid})
         
         if(!New){
-            let newproduct = await new Product ({
-                userId : prodid,
-                name : req.body.name,
-                category : req.body.category,
-                price : req.body.price,
-
+            let newproduct = new Product({
+                userId: prodid,
+                name: req.body.name,
+                category: req.body.category,
+                price: req.body.price,
             })
-            console.log(req.file)
+
             const ann = newproduct.save()
             res.send("product added successfully"+ann)
-            console.log(prodid+'has updated a new product')
-        
-        }
-    
+            console.log(prodid +'  has updated a new product')
+        } 
+        else {
+            next()
+            res.send("product with this token already exist")
+        }  
+
     }
     catch(err){
         res.send("An error Occured :" + err)
-
     }
 }
 
 )
+
 // get product by id
 
 const GetUserProduct = async (req,res,next)=>{

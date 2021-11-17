@@ -1,9 +1,10 @@
+//Updated code 
+
+
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 function generateAccessToken(username) {
-  // return jwt.sign({ name: username.name },"subhash", {
-  //   expiresIn: "18000s",
-  // });
-  return jwt.sign({ _id: username._id },"subhash", {
+  return jwt.sign({ _id: username._id }, "ank", {
     expiresIn: "18000s",
   });
 }
@@ -13,7 +14,7 @@ function authenticateToken(req, res, next) {
     return res.sendStatus(401).json({ error: true, message: "Unauthorized" });
   }
   const token = authHeader.split(" ")[1];
-  jwt.verify(token,"subhash", (err, data) => {
+  jwt.verify(token, "ank", (err, data) => {
     if (err)
       return res.status(401).json({ error: true, message: "Unauthorized" });
     req.token_data = data;
