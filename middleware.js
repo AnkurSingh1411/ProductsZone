@@ -1,5 +1,3 @@
-const su= require("./controllers/authcontroller");
-// const { findById } = require("./models/authmodel");
 const User = require('./models/authmodel') 
 
 
@@ -8,7 +6,7 @@ const User = require('./models/authmodel')
 const authpermission = (permissions) =>{
     return async (req,res,next) => {
         const userrole = await User.findById(req.token_data._id);
-        console.log("the role is"+ userrole)
+        // console.log("the role is"+ userrole)
         if (permissions.includes(userrole.role)){
             next()
         }else{
