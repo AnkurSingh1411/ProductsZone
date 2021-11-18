@@ -1,7 +1,7 @@
 const User = require('./models/authmodel') 
 
 
-// Updated Middleware for the permission of a role wheather its admin or a Vendor
+// Middleware for the permission of a role wheather its admin or a Vendor
 
 const authpermission = (permissions) =>{
     return async (req,res,next) => {
@@ -15,6 +15,8 @@ const authpermission = (permissions) =>{
     }
 
 }
+
+
 
 
 const authRole  = (role)=>{
