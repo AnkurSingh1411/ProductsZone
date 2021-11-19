@@ -16,9 +16,6 @@ const ProductSchema = new Schema({
         type : Number,
         required : true
     },
-    profile : {
-        type : String
-    },
     userId : {
         type : String
     },

@@ -1,6 +1,8 @@
 const Product = require('../models/productmodel')
 require ("../routes/product")
-// Showing the list of Products 
+
+
+// This Api lists all the products
 
 const Productslist = async (req, res, next) => {
 
@@ -17,25 +19,26 @@ const Productslist = async (req, res, next) => {
 
 
 
-// For Logged-in users 
-const AddUserProduct = (async (req, res, next) => {
+// This Api is for adding a new product
+
+const AddUserProduct =async (req, res, next) => {
+    console.log(req.file)
     try {
         const prodid = req.token_data._id
-
         console.log("hello", prodid)
         const New = await Product.findById({ _id: prodid })
-
         if (!New) {
             let newproduct = new Product({
                 userId: prodid,
                 name: req.body.name,
                 category: req.body.category,
-                price: req.body.price,
-                profile : req.body.profile
+                price: req.body.price
             })
 
+            
+
             const ann = newproduct.save()
-            res.send("product added successfully" + ann)
+            res.send("product added successfully")
             console.log(prodid + '  has updated a new product')
         }
         else {
@@ -49,9 +52,9 @@ const AddUserProduct = (async (req, res, next) => {
     }
 }
 
-)
 
-// Update a product by its Id 
+
+// This Api Updates a product by its Id 
 
 const UpdateProductById = async (req, res, next) => {
     try {
@@ -76,7 +79,7 @@ const UpdateProductById = async (req, res, next) => {
 
 }
 
-// Getting a Single product by id 
+// This api is use to get a single product by its id 
 
 const GetProductById = async (req, res, next) => {
 
@@ -90,7 +93,7 @@ const GetProductById = async (req, res, next) => {
     }
 }
 
-// Deleting a product from database
+//this Api is used to delete a product from database
 
 const DeleteProduct = async (req, res, next) => {
     console.log(req.params.id)
@@ -103,6 +106,19 @@ const DeleteProduct = async (req, res, next) => {
     }
 }
 
+// this api is used to delete all the products from the database
+
+const DeleteAllProducts = async(req,res,next)=>{
+    try{
+        await Product.remove()
+        res.status(200).json("All the products has been removed")
+    }catch (err) {
+        res.json({
+            error : err
+        })
+
+    }
+}
 
 module.exports = {
     Productslist,
@@ -110,4 +126,6 @@ module.exports = {
     UpdateProductById,
     DeleteProduct,
     GetProductById,
+    DeleteAllProducts
+    
 }
