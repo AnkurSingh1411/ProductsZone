@@ -17,8 +17,6 @@ const Productslist = async (req, res, next) => {
 }
 
 
-
-
 // This Api is for adding a new product
 
 const AddUserProduct =async (req, res, next) => {
@@ -34,8 +32,6 @@ const AddUserProduct =async (req, res, next) => {
                 category: req.body.category,
                 price: req.body.price
             })
-
-            
 
             const ann = newproduct.save()
             res.send("product added successfully")
@@ -127,5 +123,4 @@ module.exports = {
     DeleteProduct,
     GetProductById,
     DeleteAllProducts
-    
 }

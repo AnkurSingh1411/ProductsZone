@@ -14,7 +14,7 @@ const register = (req,res,next)=>{
         }
 
         console.log(req.body.password)
-            let user = new usermodel({
+        let user = new usermodel({
         name : req.body.name,
         email : req.body.email,
         phone : req.body.phone,
@@ -89,10 +89,23 @@ const funct1=(req)=>{
     return usermodel.findOne({_id:req.body._id})
 }
 
+const Allvendors = (req,res)=>{
+    try{
+    const Vn = usermodel.findOne({role:"Vendor"})
+    console.log(Vn)
+    res.json(Vn)
+    }
+    catch(err){
+        res.json({
+            message : err
+        })
+    }
+} 
+
 module.exports = {
     funct1,
     register,
     login,
     findAll,
-    
+    Allvendors
 }

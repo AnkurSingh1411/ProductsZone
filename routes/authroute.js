@@ -7,10 +7,12 @@ const passport = require('passport')
 const usermodel = require("../models/authmodel");
 const { route } = require('./product');
 
+
 // const {verifyToken} = require("../jwt/jwt_operations")
 router.post('/register',Authcontoller.register)
 router.post('/login',Authcontoller.login)
 router.get('/users',Authcontoller.findAll)
+router.get("/vendors",Authcontoller.Allvendors)
 
 // Oauth things ======
 const GoogleStrategy = require('passport-google-oauth2').Strategy;

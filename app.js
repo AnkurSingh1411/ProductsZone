@@ -15,6 +15,7 @@ var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 const ProductRouter = require('./routes/product');
 const authrouter = require('./routes/authroute')
+const Adminrouter = require('./routes/admin.router')
 // const sampleRouter = require('./routes/sample')
 const passport = require ("passport");
 const errhandler = require("./error_handler");
@@ -50,6 +51,7 @@ app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 app.use('/api/product', ProductRouter);
 app.use('/auth',authrouter);
+app.use('/admin',Adminrouter);
 // app.use('/sample',sampleRouter)
 app.use('/profile', express.static('upload/images'));
 app.use(errhandler)

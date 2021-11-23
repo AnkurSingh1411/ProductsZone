@@ -6,7 +6,11 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@admin-bro/express": "^3.1.0",
+    "@admin-bro/mongoose": "^1.1.0",
     "@types/passport-google-oauth20": "^2.0.10",
+    "admin-bro": "^4.0.1",
+    "admin-bro-expressjs": "^2.1.1",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.4",
@@ -14,7 +18,9 @@
     "debug": "~2.6.9",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
-    "express": "~4.16.1",
+    "express": "^4.16.4",
+    "express-formidable": "^1.2.0",
+    "express-session": "^1.17.2",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.13",
@@ -26,7 +32,8 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0",
     "passport-oauth2": "^1.6.1",
-    "pug": "2.0.0-beta11"
+    "pug": "2.0.0-beta11",
+    "tslib": "^2.3.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

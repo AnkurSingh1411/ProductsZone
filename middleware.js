@@ -17,8 +17,6 @@ const authpermission = (permissions) =>{
 }
 
 
-
-
 const authRole  = (role)=>{
 return (req,res,next)=>{
     if (req.user.role!==role){
