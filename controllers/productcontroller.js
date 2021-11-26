@@ -112,9 +112,31 @@ const DeleteAllProducts = async(req,res,next)=>{
         res.json({
             error : err
         })
-
-    }
+      }
 }
+
+// Inventory Management (countingproducts)
+
+const RemainingProducts = async (req,res)=>{
+    try{
+    const datas = await Product.find()
+    let length = datas.length
+    if (length===0){
+        res.json("No remaining products")
+    }if (length===1){
+        res.json({message : "There is only " + length + " remaining product",
+    remaining_data:datas})
+    }
+    res.json({message : "There are "+length+" remaining products available",
+remaining_data : datas})
+    
+}
+catch (err) {
+    res.json({
+        message: "looks like something went wrong",
+        error : err
+    })
+}}
 
 module.exports = {
     Productslist,
@@ -122,5 +144,6 @@ module.exports = {
     UpdateProductById,
     DeleteProduct,
     GetProductById,
-    DeleteAllProducts
+    DeleteAllProducts,
+    RemainingProducts
 }

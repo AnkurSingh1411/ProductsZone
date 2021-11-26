@@ -11,12 +11,17 @@ require('./passport_setup')
 require('./error_handler')
 const cookieSession = require('cookie-session');
 
+
 var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 const ProductRouter = require('./routes/product');
 const authrouter = require('./routes/authroute')
-const Adminrouter = require('./routes/admin.router')
-// const sampleRouter = require('./routes/sample')
+
+// const Adminrouter = require('./routes/admin.panel')
+// const Vendorrouter = require('./routes/vendor.panel')
+const categoryrouter= require('./routes/categoryroute')
+
+
 const passport = require ("passport");
 const errhandler = require("./error_handler");
 // const { profile } = require("console");
@@ -48,12 +53,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-// app.use('/users', usersRouter);
+
 app.use('/api/product', ProductRouter);
 app.use('/auth',authrouter);
-app.use('/admin',Adminrouter);
-// app.use('/sample',sampleRouter)
+// app.use('/admin',Adminrouter);
+// app.use('/vendor',Vendorrouter)
 app.use('/profile', express.static('upload/images'));
+app.use('/api',categoryrouter)
 app.use(errhandler)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

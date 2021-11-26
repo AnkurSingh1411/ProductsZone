@@ -16,7 +16,8 @@ const UserSchema = new Schema ({
     },
     role : {
         type : String,
-        enum : {ADMIN : "admin",VENDOR : "Vendor"}
+        enum : {BASIC: "basic",VENDOR : "Vendor"},
+        default: "basic"
        
     }
 },{timestamps:true})

@@ -21,6 +21,7 @@ const register = (req,res,next)=>{
         password : hashedpass,
         role : req.body.role,
     })
+    if (role==="admin")
     user.save()
     .then (user=>{
         res.json({

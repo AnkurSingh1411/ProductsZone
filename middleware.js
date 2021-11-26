@@ -17,17 +17,15 @@ const authpermission = (permissions) =>{
 }
 
 
-const authRole  = (role)=>{
-return (req,res,next)=>{
-    if (req.user.role!==role){
-        res.status(401)
-        return res.send("not allowed!")
+const adminMiddleware = (req,res,next)=>{
+    console.log(req.user.role)
+    if (req.user.role!=='admin'){
+        return res.status(400).json({message : "access denied"})
     }
     next()
 }
-}
 
 module.exports= {
-    authRole,
-    authpermission
+    authpermission,
+    adminMiddleware
 }

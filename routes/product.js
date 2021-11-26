@@ -43,4 +43,5 @@ router.delete('/deleteproduct/:id',authenticateToken,authpermission('Vendor','ad
 router.put('/updateproduct/:id',authenticateToken,authpermission('Vendor'),productcontroller.UpdateProductById)
 router.get('/prodbyid/:id',authenticateToken,authpermission('Vendor'),productcontroller.GetProductById)
 router.delete('/deleteall',authenticateToken,authpermission("admin"),productcontroller.DeleteAllProducts)
+router.get('/remaining',authenticateToken,authpermission("Vendor"),productcontroller.RemainingProducts)
 module.exports = router
