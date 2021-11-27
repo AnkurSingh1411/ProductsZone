@@ -21,6 +21,9 @@ const authrouter = require('./routes/authroute')
 // const Vendorrouter = require('./routes/vendor.panel')
 const categoryrouter= require('./routes/categoryroute')
 
+// Order Management Route
+
+const OrderRouter = require("./routes/order")
 
 const passport = require ("passport");
 const errhandler = require("./error_handler");
@@ -60,6 +63,7 @@ app.use('/auth',authrouter);
 // app.use('/vendor',Vendorrouter)
 app.use('/profile', express.static('upload/images'));
 app.use('/api',categoryrouter)
+app.use('/order',OrderRouter)
 app.use(errhandler)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

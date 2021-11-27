@@ -16,11 +16,11 @@ const ProductSchema = new Schema({
         type : Number,
         required : true
     },
-    userId : {
+    productId : {
         type : String
     },
   
 
 },{timestamps:true})
-const Product = mongoose.model('products',ProductSchema)
+const Product = mongoose.model("products",ProductSchema)
 module.exports = Product
