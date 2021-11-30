@@ -14,12 +14,10 @@ const UserSchema = new Schema ({
     password : {
         type : String
     },
-    role : {
-        type : String,
-        enum : {BASIC: "basic",VENDOR : "Vendor"},
-        default: "basic"
-       
-    }
+    role: {
+        type: String,
+        default: "user",
+      }
 },{timestamps:true})
 
 const User = mongoose.model('username',UserSchema)

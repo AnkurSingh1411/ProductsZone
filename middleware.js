@@ -16,6 +16,22 @@ const authpermission = (permissions) =>{
 
 }
 
+const authVendor = async (req, res, next) => {
+    try {
+      const user = await User.findOne({
+        _id: req.user.id,
+      });
+      if (user.role === "user" || user.role === "admin") {
+        return res.status(400).json({ msg: "Vendor Recources Access Denied." });
+      }
+      next();
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  };
+
+
+
 
 const adminMiddleware = (req,res,next)=>{
     console.log(req.user.role)
@@ -25,7 +41,7 @@ const adminMiddleware = (req,res,next)=>{
     next()
 }
 
-module.exports= {
-    authpermission,
-    adminMiddleware
-}
+module.exports= 
+    {authpermission,
+    adminMiddleware,
+    authVendor}
