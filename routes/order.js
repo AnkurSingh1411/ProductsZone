@@ -7,6 +7,7 @@ const router = express.Router()
 const User = require("../models/authmodel")
 const auth = require("../jwt/jwt_operations")
 const Processing = require("../models/Processed_Order")
+const Wishlist = require('../models/wishlist')
 
 //An api to fetch all the orders
 
@@ -29,6 +30,7 @@ router.get("/",(req,res,next)=>{
             })
         });
     })
+
     .catch(err=>{
         res.status(500).json({
             error : err
@@ -56,6 +58,7 @@ router.post ('/',(req,res,next)=>{
             product : req.body.productId
     
         })
+
         order
         .save()
         .then(result =>{
@@ -95,8 +98,8 @@ router.post ('/',(req,res,next)=>{
     
 })
 
-// An Api to get the order by its id 
 
+// An Api to get the order by its id 
 
 router.get("/:orderId", (req, res, next) => {
     Order.findById(req.params.orderId)
@@ -181,6 +184,7 @@ router.post("/process/:orderid",(req,res,next)=>{
   res.json({
     message : "Order Processing Failed"
   })
+
   }
   const OrderToProcess = new Processing({
     _id : mongoose.Types.ObjectId(),
@@ -197,8 +201,12 @@ else{
   OrderToProcess.save()
   res.status(200).json("order has been processed")
 }
-  
+
+
 })
+
+
+
 
 
 module.exports= router
