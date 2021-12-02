@@ -43,8 +43,6 @@ router.get("/",(req,res,next)=>{
 router.post ('/',(req,res,next)=>{
 
     Product.findById(req.body.productId)
-    
-
     .then(product=>{
         if (!product){
             return  res.status(404).json({
@@ -59,10 +57,10 @@ router.post ('/',(req,res,next)=>{
     
         })
 
-        order
-        .save()
-        .then(result =>{
-            console.log(result);
+order
+  .save()
+  .then(result =>{
+  console.log(result);
             
             res.status(201).json({
                 message : "Order Stored",
@@ -126,6 +124,7 @@ router.get("/:orderId", (req, res, next) => {
       });
   });
 
+
 // An api to delete the orders by the id
 
 
@@ -149,7 +148,7 @@ router.delete("/:orderId", (req, res, next) => {
       });
   });
 
-// An Api by which vendor can find the order related to him
+// An Api by which vendor can find the order related to him 
 
 router.get("/vendor/:orderId", (req, res, next) => {
     Order.find({vendorId:req.params.orderId})
@@ -160,8 +159,7 @@ router.get("/vendor/:orderId", (req, res, next) => {
             message: "Order not found"
           });
         }
-
-        res.status(200).json({
+      res.status(200).json({
           order: order,
           request: {
             type: "GET",
@@ -190,23 +188,17 @@ router.post("/process/:orderid",(req,res,next)=>{
     _id : mongoose.Types.ObjectId(),
     product : req.body.productId,
     quantity : req.body.quantity
-    
-
 })
+
 const COUNT = Processing.find()
 if (COUNT.length===null){
   res.json("order can not be processed, You need to add the desired order")
 }
+
 else{
   OrderToProcess.save()
   res.status(200).json("order has been processed")
 }
-
-
 })
-
-
-
-
 
 module.exports= router

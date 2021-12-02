@@ -13,23 +13,22 @@ router.post('/',async (req, res) => {
       const wishlist = new Wishlist({
         title : req.body.title,
         product : req.body.productId
-    
-      })
-      
+    })
+
         let WL = await wishlist.save()
         console.log(WL)
         res.status(200).json({
           message : "wishlist created",
           wishlist_data : wishlist
-    
-        })
+    })
     }catch (err){
       res.json({
         message : "ops an error occured",
         error : err
       })
     }
-    });
+
+});
 
 
 // getting all the wishlists
@@ -41,7 +40,9 @@ router.get("/",async(req,res)=>{
        message : " WishList Retrived",
        data : Wishlists
    })
+
     }
+
     catch(err){
         res.status(500).json({
             message : " error found",
@@ -68,8 +69,7 @@ router.put('/product/add', (req, res) => {
                 })
         }
     })
+
 });
-
-
 
 module.exports = router

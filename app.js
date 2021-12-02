@@ -25,6 +25,7 @@ const categoryrouter= require('./routes/categoryroute')
 
 const OrderRouter = require("./routes/order")
 const wishlistRouter = require("./routes/Wishlist")
+const cartRouter = require("./routes/cart")
 
 const passport = require ("passport");
 const errhandler = require("./error_handler");
@@ -66,6 +67,7 @@ app.use('/profile', express.static('upload/images'));
 app.use('/api',categoryrouter)
 app.use('/order',OrderRouter)
 app.use('/wishlist',wishlistRouter)
+app.use('/cart',cartRouter)
 app.use(errhandler)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
