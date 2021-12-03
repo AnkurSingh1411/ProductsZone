@@ -26,6 +26,8 @@ const categoryrouter= require('./routes/categoryroute')
 const OrderRouter = require("./routes/order")
 const wishlistRouter = require("./routes/Wishlist")
 const cartRouter = require("./routes/cart")
+// payment Gateways routes
+const paymentRouter = require("./routes/payment_gateway")
 
 const passport = require ("passport");
 const errhandler = require("./error_handler");
@@ -33,11 +35,9 @@ const errhandler = require("./error_handler");
 // const { resolveSoa } = require("dns");
 var app = express();
 
-// view engine setup
+
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-
-
+app.set('view engine', 'ejs');
 // mentioning seedAdmin function here 
 
 // const {seedAdmin} = require('./controllers/authcontroller')
@@ -68,6 +68,7 @@ app.use('/api',categoryrouter)
 app.use('/order',OrderRouter)
 app.use('/wishlist',wishlistRouter)
 app.use('/cart',cartRouter)
+app.use('/stripe',paymentRouter)
 app.use(errhandler)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

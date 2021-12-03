@@ -27,6 +27,7 @@ router.get('/reduce/:id', function (req, res, next) {
     res.redirect('/cart');
 });
 
+
 router.get('/remove/:id', function (req, res, next) {
     const productId = req.params.id;
     const cart = new Cart(req.session.cart ? req.session.cart :{});
@@ -36,6 +37,7 @@ router.get('/remove/:id', function (req, res, next) {
         message : "The item has been removed from the cart"
     })
 });
+
 
 router.get('/cart', function (req, res, next) {
     if(!req.session.cart) {
