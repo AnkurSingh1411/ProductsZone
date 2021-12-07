@@ -68,7 +68,7 @@ app.use('/api',categoryrouter)
 app.use('/order',OrderRouter)
 app.use('/wishlist',wishlistRouter)
 app.use('/cart',cartRouter)
-app.use('/stripe',paymentRouter)
+app.use('/',paymentRouter)
 app.use(errhandler)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

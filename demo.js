@@ -43,9 +43,9 @@ const router = AdminBroExpress.buildAuthenticatedRouter(adminBro, {
     }
       return null
     },
-  }, null, {	// 추가
-    resave: false,	// 추가
-    saveUninitialized: true,	// 추가
+  }, null, {
+    resave: false,
+    saveUninitialized: true,	
 });
 
 
