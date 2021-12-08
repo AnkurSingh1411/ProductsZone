@@ -1,22 +1,25 @@
 const express = require('express')
 const bodyparser = require('body-parser')
 const path = require('path')
-
+const cartmodel = require("../models/cart")
 const router = express.Router()
+
   
 var Publishable_Key = 'pk_test_51K2YRkSFQFrVK8ZoblFveNij7JYn8gZYQrc6li5pY6mTcJ8YHWwSk4XQylhpMmDKUgF4TowBvN9NKS2YYxcXShmp00qCH5vqLX'
 var Secret_Key = 'sk_test_51K2YRkSFQFrVK8ZoseEQe3PUDdf6vZHoTq54PNLQAwangkBbroWAOhj2MMDjMGTkwRfBe3XxbB2N0IP8Rmp6Nq4S004tHu51GV'
   
 const stripe = require('stripe')(Secret_Key)
-  
 
-  
+
 
   
 router.get('/stripe', function(req, res){
     res.render('Home', {
-       key: Publishable_Key
+       key: Publishable_Key,
+       p : cartmodel.PRICE
+
     })
+  
 })
   
 router.post('/payment', function(req, res){
