@@ -17,12 +17,9 @@ var indexRouter = require('./routes/index');
 const ProductRouter = require('./routes/product');
 const authrouter = require('./routes/authroute')
 
-// const Adminrouter = require('./routes/admin.panel')
-// const Vendorrouter = require('./routes/vendor.panel')
 const categoryrouter= require('./routes/categoryroute')
-
 // Order Management Route
-
+const authRoutes = require("./routes/auth");
 const OrderRouter = require("./routes/order")
 const wishlistRouter = require("./routes/Wishlist")
 const cartRouter = require("./routes/cart")
@@ -69,6 +66,7 @@ app.use('/order',OrderRouter)
 app.use('/wishlist',wishlistRouter)
 app.use('/cart',cartRouter)
 app.use('/',paymentRouter)
+app.use("/api", authRoutes);
 app.use(errhandler)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

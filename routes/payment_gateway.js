@@ -15,8 +15,7 @@ const stripe = require('stripe')(Secret_Key)
   
 router.get('/stripe', function(req, res){
     res.render('Home', {
-       key: Publishable_Key,
-       p : cartmodel.PRICE
+       key: Publishable_Key
 
     })
   
