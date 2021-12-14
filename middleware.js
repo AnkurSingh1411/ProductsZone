@@ -1,3 +1,4 @@
+const { userid } = require('./controllers/cart');
 const User = require('./models/authmodel') 
 
 
@@ -6,7 +7,6 @@ const User = require('./models/authmodel')
 const authpermission = (permissions) =>{
     return async (req,res,next) => {
         const userrole = await User.findById(req.token_data._id);
-        // console.log("the role is"+ userrole)
         if (permissions.includes(userrole.role)){
             next()
         }else{
@@ -15,6 +15,8 @@ const authpermission = (permissions) =>{
     }
 
 }
+console.log("the current role is ",authpermission.userrole)
+
 
 const authVendor = async (req, res, next) => {
     try {
@@ -44,4 +46,5 @@ const adminMiddleware = (req,res,next)=>{
 module.exports= 
     {authpermission,
     adminMiddleware,
-    authVendor}
+    authVendor,
+}

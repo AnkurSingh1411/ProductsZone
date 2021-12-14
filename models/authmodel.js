@@ -20,6 +20,13 @@ const UserSchema = new Schema ({
       }
 },{timestamps:true})
 
+
+UserSchema.methods = {
+    authenticate: async function (PASS) {
+      return await bcrypt.compare(PASS, this.password);
+    },
+  };
+  
 const User = mongoose.model('username',UserSchema)
 module.exports = User
 

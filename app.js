@@ -12,6 +12,7 @@ require('./error_handler')
 const cookieSession = require('cookie-session');
 
 
+
 var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 const ProductRouter = require('./routes/product');
@@ -53,6 +54,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 app.use('/', indexRouter);
 

@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
     },
-    hash_password: {
+    password: {
       type: String,
       required: true,
     },
@@ -62,4 +62,4 @@ userSchema.methods = {
   },
 };
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("USER", userSchema);

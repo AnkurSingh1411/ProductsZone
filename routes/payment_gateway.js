@@ -1,5 +1,5 @@
 const express = require('express')
-const bodyparser = require('body-parser')
+// const bodyparser = require('body-parser')
 const path = require('path')
 const cartmodel = require("../models/cart")
 const router = express.Router()
@@ -43,7 +43,7 @@ router.post('/payment', function(req, res){
             amount: 2500,     // Charing Rs 25
             description: 'Web Development Product',
             currency: 'INR',
-            customer: customer.id
+            customer: customer.idh
         });
     })
     .then((charge) => {

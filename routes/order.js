@@ -8,7 +8,7 @@ const User = require("../models/authmodel")
 const auth = require("../jwt/jwt_operations")
 const Processing = require("../models/Processed_Order")
 const Wishlist = require('../models/wishlist')
-
+const {authenticateToken} = require("../jwt/jwt_operations")
 //An api to fetch all the orders
 
 router.get("/",(req,res,next)=>{
@@ -40,7 +40,7 @@ router.get("/",(req,res,next)=>{
 
 // An api to create a new order
 
-router.post ('/',(req,res,next)=>{
+router.post ('/',authenticateToken,(req,res,next)=>{
 
     Product.findById(req.body.productId)
     .then(product=>{

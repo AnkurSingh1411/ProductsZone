@@ -9,6 +9,7 @@ const generateJwtToken = (_id, role) => {
   });
 };
 
+
 exports.signup = (req, res) => {
   User.findOne({ email: req.body.email }).exec(async (error, user) => {
     if (user)
@@ -19,12 +20,13 @@ exports.signup = (req, res) => {
     const { firstName, lastName, email, password } = req.body;
     const hash_password = await bcrypt.hash(password, 10);
     const user_ = new User({
-      firstName,
-      lastName,
-      email,
-      hash_password,
+      firstName : firstName,
+      lastName : lastname ,
+      email : email,
+      password : hash_password,
       username: shortid.generate()
     });
+    
 
     user_.save((error, user) => {
       if (error) {
