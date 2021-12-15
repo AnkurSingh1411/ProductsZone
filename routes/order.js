@@ -40,7 +40,8 @@ router.get("/",(req,res,next)=>{
 
 // An api to create a new order
 
-router.post ('/',authenticateToken,(req,res,next)=>{
+router.post ('/',authenticateToken,async(req,res,next)=>{
+  const tokendata = await User.findById(req.token_data._id)
 
     Product.findById(req.body.productId)
     .then(product=>{
@@ -78,7 +79,33 @@ order
               
               
             })
+            var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'as797007@gmail.com',
+    pass: 'djdjank123'
+  }
+});
+
+var mailOptions = {
+  from: 'as797007@gmail.com',
+  to: String(tokendata.email),
+  subject: 'Sending Email using Node.js',
+  text: 'That was easy!'
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
         })
+        
         
 .catch(err =>{
         console.log(err)
