@@ -11,8 +11,6 @@ require('./passport_setup')
 require('./error_handler')
 const cookieSession = require('cookie-session');
 
-
-
 var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 const ProductRouter = require('./routes/product');
@@ -26,7 +24,7 @@ const wishlistRouter = require("./routes/Wishlist")
 const cartRouter = require("./routes/cart")
 // payment Gateways routes
 const paymentRouter = require("./routes/payment_gateway")
-
+const fbauth = require("./facebookpassport")
 const passport = require ("passport");
 const errhandler = require("./error_handler");
 // const { profile } = require("console");
@@ -70,6 +68,7 @@ app.use('/wishlist',wishlistRouter)
 app.use('/cart',cartRouter)
 app.use('/',paymentRouter)
 app.use("/api", authRoutes);
+app.use("/auth",fbauth)
 app.use(errhandler)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -93,7 +92,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.send('error',err.message);
 });
-
-
 
 module.exports = app
