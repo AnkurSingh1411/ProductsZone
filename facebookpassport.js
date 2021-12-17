@@ -36,7 +36,7 @@ passport.deserializeUser(function(id, done) {
 });
 
 router.get('/profile',(req,res) => {
-    res.send("Sorry you are not able to see login inputs of facebook here . kyunki mera facebook developer account nahin ban pa raha hai . Email kuch issue kar raha hai")
+    res.send("Sorry you are not able to see login inputs of facebook here . kyunki mera facebook developer account nahin ban pa raha hai . Email kuch issue kar raha hai. Isko figure out krna hai bas client id and client secret baki hai")
 })
 
 router.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email,user_photos' }));
