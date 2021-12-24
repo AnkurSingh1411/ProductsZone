@@ -1,36 +1,27 @@
-const Cart = require ("../models/cart")
+const cart = require ("../models/cart")
 const User = require("../models/authmodel");
 const { ConnectionStates } = require("mongoose");
 // const {Userid} = require("../middleware")
-const addItemToCart =async (req, res, next) => {
-   
+
+const addItemToCart = async (req,res,next)=>{
     try {
-        const USERid = req.token_data._id
-        console.log("hello", USERid)
-        const New = await Cart.findById({ _id:USERid })
-        if (!New) {
-            let newCart = new Product({
-                user: USERid,
-                cartItems : req.body.cartItems
-            })
+        carttosave = new cart ({
+            cartItems : req.body.cartItems
+        })
+        const saved_cart = carttosave.save()
 
-            const ann = newCart.save()
-            res.send("Cart added successfully")
-            console.log(USERid + '  has updated a new product')
-        }
-        else {
-            next()
-            res.send("Cart with this token already exist")
-        }
-
+    if (saved_cart){
+        res.json({
+            message : "cart has been saved"
+})
     }
-    
-catch (err) {
-        res.send("An error Occured :" + err)
-        console.log(err)
-    }
+    }catch (err){
+        res.json({
+            message : "ops an error occoured",
+            error : err
+        })
+    } 
 }
-
 
 
 // const addItemToCart = async(req,res)=>{
@@ -66,6 +57,7 @@ const getCartById = async(req,res,next)=>{
 
 }
 
-
-module.exports = {getCartById,
-addItemToCart}
+module.exports = {
+    addItemToCart,
+    getCartById    
+}

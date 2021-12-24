@@ -18,6 +18,19 @@ const UserSchema = new Schema ({
         type: String,
         default: "user",
       }
+    ,
+    access : {
+        type : Boolean,  
+    }
+    ,
+    date : {
+        type : String
+    }
+    ,
+    expirydate : {
+        type : String
+    }
+
 },{timestamps:true})
 
 
@@ -29,4 +42,3 @@ UserSchema.methods = {
   
 const User = mongoose.model('username',UserSchema)
 module.exports = User
-

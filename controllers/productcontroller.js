@@ -1,7 +1,7 @@
 const Product = require('../models/productmodel')
 require ("../routes/product")
-
-
+const User = require("../models/authmodel")
+const Valid = require ("../controllers/validitycontroller")
 // This Api lists all the products
 
 const Productslist = async (req, res, next) => {
@@ -21,7 +21,10 @@ const Productslist = async (req, res, next) => {
 
 const AddUserProduct =async (req, res, next) => {
     console.log(req.file)
-    try {
+    finduser =await  User.findById(req.token_data._id)
+    if (finduser.expirydate>=finduser.date){
+     try {
+       
         const prodid = req.token_data._id
         console.log("hello", prodid)
         const New = await Product.findById({ _id: prodid })
@@ -47,8 +50,7 @@ const AddUserProduct =async (req, res, next) => {
         res.send("An error Occured :" + err)
     }
 }
-
-
+}
 
 // This Api Updates a product by its Id 
 
@@ -72,7 +74,6 @@ const UpdateProductById = async (req, res, next) => {
     catch (err) {
         res.send('An error occured :' + err)
     }
-
 }
 
 // This api is use to get a single product by its id 

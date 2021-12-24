@@ -1,5 +1,7 @@
 const { userid } = require('./controllers/cart');
 const User = require('./models/authmodel') 
+const Valid = require ("./models/validity")
+const moment = require ("moment-timezone")
 
 
 // Middleware for the permission of a role wheather its admin or a Vendor
@@ -18,6 +20,14 @@ const authpermission = (permissions) =>{
 console.log("the current role is ",authpermission.userrole)
 
 
+const Momento = async(req,res,next)=>{
+  const a= new Date (moment().add(1,"year").format('YYYY-MM-DD'));
+  const b= new Date()
+  if (a>=b){
+    Valid.access = true
+  }
+}
+
 const authVendor = async (req, res, next) => {
     try {
       const user = await User.findOne({
@@ -32,9 +42,6 @@ const authVendor = async (req, res, next) => {
     }
   };
 
-
-
-
 const adminMiddleware = (req,res,next)=>{
     console.log(req.user.role)
     if (req.user.role!=='admin'){
@@ -47,4 +54,5 @@ module.exports=
     {authpermission,
     adminMiddleware,
     authVendor,
+    Momento
 }

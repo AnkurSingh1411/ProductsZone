@@ -91,7 +91,7 @@ var transporter = nodemailer.createTransport({
 
 var mailOptions = {
   from: 'as797007@gmail.com',
-  to: String(tokendata.email),
+  to: String(token_data.email),
   subject: 'Sending Email using Node.js',
   text: 'That was easy!'
 };
@@ -207,11 +207,12 @@ router.get("/vendor/:orderId", (req, res, next) => {
 router.post("/process/:orderid",(req,res,next)=>{
   const ORder = Order.findById(req.params.orderId)
   if (!ORder){
+    
   res.json({
     message : "Order Processing Failed"
   })
 
-  }
+}
   const OrderToProcess = new Processing({
     _id : mongoose.Types.ObjectId(),
     product : req.body.productId,

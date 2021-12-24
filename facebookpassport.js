@@ -14,8 +14,8 @@ const facebookStrategy = require('passport-facebook').Strategy
 passport.use(new facebookStrategy({
 
     // pull in our app id and secret from our auth.js file
-    clientID        : "603496006962121",
-    clientSecret    : "c63a6f6f8189ed75b5958b2c0c0e7341",
+    clientID        : "602185114194386",
+    clientSecret    : "74ff31fe1b7e4cfc8f2571f46e12185e",
     callbackURL     : "http://localhost:3400/facebook/callback",
     profileFields   : ['id','displayName','name','gender','picture.type(large)','email']
 
@@ -35,11 +35,16 @@ passport.deserializeUser(function(id, done) {
     return done(null,user)
 });
 
-router.get('/profile',(req,res) => {
-    res.send("Sorry you are not able to see login inputs of facebook here . kyunki mera facebook developer account nahin ban pa raha hai . Email kuch issue kar raha hai. Isko figure out krna hai bas client id and client secret baki hai")
+router.get("/",(req,res)=>{
+    res.send("this is the redirection page")
 })
 
-router.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email,user_photos' }));
+router.get('/profile',(req,res) => {
+    res.send("this is profile")
+})
+
+
+router.get('/facebook', passport.authenticate('facebook', { scope : 'email,user_photos' }));
 
 router.get('/facebook/callback',
         passport.authenticate('facebook', {
@@ -50,6 +55,5 @@ router.get('/facebook/callback',
 router.get('/fb',(req,res) => {
     res.render("facebook")
 })
-
 
 module.exports = router

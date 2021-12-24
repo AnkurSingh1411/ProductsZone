@@ -3,8 +3,6 @@ const bcrypt = require("bcryptjs")
 // const jwt = require("jsonwebtoken")
 const {generateAccessToken}=require('../jwt/jwt_operations')
 
-
-
 const register = (req,res,next)=>{
     bcrypt.hash(req.body.password,10,function(err,hashedpass){
         if (err){

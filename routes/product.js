@@ -7,7 +7,7 @@ const multer = require('multer')
 const path = require("path");
 const errhandler = require('../error_handler');
 const {authRole,authpermission,authUser} = require('../middleware')
-
+const {Subscription} = require ("../controllers/validitycontroller")
 
 
 // router.get('/prod',productcontroller.ProductById)
@@ -37,6 +37,8 @@ router.post('/upload',upload.single('profile'),(req,res)=>{
 })
 
 
+router.put ("/sb",authenticateToken,Subscription)
+router.get('/',authenticateToken,authpermission('user'),upload.single('profile'),productcontroller.Productslist)
 router.get('/',authenticateToken,authpermission('user'),upload.single('profile'),productcontroller.Productslist)
 router.post('/addproduct',authenticateToken,authpermission('Vendor'),productcontroller.AddUserProduct)
 router.delete('/deleteproduct/:id',authenticateToken,authpermission('Vendor','admin'),productcontroller.DeleteProduct)
@@ -44,5 +46,5 @@ router.put('/updateproduct/:id',authenticateToken,authpermission('Vendor'),produ
 router.get('/prodbyid/:id',authenticateToken,authpermission('Vendor'),productcontroller.GetProductById)
 router.delete('/deleteall',authenticateToken,authpermission("admin"),productcontroller.DeleteAllProducts)
 router.get('/remaining',authenticateToken,authpermission("Vendor"),productcontroller.RemainingProducts)
-module.exports = router
 
+module.exports = router
