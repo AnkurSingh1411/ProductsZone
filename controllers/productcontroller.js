@@ -4,26 +4,31 @@ const User = require("../models/authmodel")
 const Valid = require ("../controllers/validitycontroller")
 // This Api lists all the products
 
-const Productslist = async (req, res, next) => {
 
-    try {
-        const jk = await Product.find()
-        console.log(jk)
-        return res.json(jk)
-    }
-    catch (err) {
-        res.json('An error occured :' + err)
-    }
+const Productslist = async(req,res,next)=>{
+    await Product.find(function (err,data){
+        if (err){
+            res.send(err)
+        }
+        if (data){
+            res.send("no data found")
+        }
+        res.send(data)
+    })
 }
-
-
 // This Api is for adding a new product
 
 const AddUserProduct =async (req, res, next) => {
     console.log(req.file)
     finduser =await  User.findById(req.token_data._id)
-    if (finduser.expirydate>=finduser.date){
-     try {
+    const reports ={
+        isoDate: {
+          $gte: `${finduser.expirydate}`,
+          $lt: `${finduser.date}`
+        }}
+    console.log(typeof(reports.isoDate))  
+    if (reports){   
+    try {
        
         const prodid = req.token_data._id
         console.log("hello", prodid)
@@ -52,9 +57,17 @@ const AddUserProduct =async (req, res, next) => {
 }
 }
 
+
+
 // This Api Updates a product by its Id 
 
 const UpdateProductById = async (req, res, next) => {
+    const reports ={
+        isoDate: {
+          $gte: `${finduser.expirydate}`,
+          $lt: `${finduser.date}`
+        }}
+    if (reports){
     try {
         let productid = req.params.id
 
@@ -74,12 +87,17 @@ const UpdateProductById = async (req, res, next) => {
     catch (err) {
         res.send('An error occured :' + err)
     }
-}
+}}
 
 // This api is use to get a single product by its id 
 
 const GetProductById = async (req, res, next) => {
-
+    const reports ={
+        isoDate: {
+          $gte: `${finduser.expirydate}`,
+          $lt: `${finduser.date}`
+        }}
+    if (reports){
     try {
         const ProdById = await Product.findById(req.params.id)
         console.log(ProdById)
@@ -89,11 +107,17 @@ const GetProductById = async (req, res, next) => {
         res.json('An error occured :' + err)
     }
 }
-
+}
 //this Api is used to delete a product from database
 
 const DeleteProduct = async (req, res, next) => {
     console.log(req.params.id)
+    const reports ={
+        isoDate: {
+          $gte: `${finduser.expirydate}`,
+          $lt: `${finduser.date}`
+        }}
+    if (reports){
     try {
         await Product.remove({ _id: req.params.id })
         res.send("Product has been removed from the database")
@@ -102,10 +126,11 @@ const DeleteProduct = async (req, res, next) => {
         res.json("ops " + err)
     }
 }
-
+}
 // this api is used to delete all the products from the database
 
 const DeleteAllProducts = async(req,res,next)=>{
+    
     try{
         await Product.remove()
         res.status(200).json("All the products has been removed")

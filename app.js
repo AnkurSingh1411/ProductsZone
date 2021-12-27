@@ -10,7 +10,6 @@ require('./mongo')
 require('./passport_setup')
 require('./error_handler')
 const cookieSession = require('cookie-session');
-
 var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 const ProductRouter = require('./routes/product');

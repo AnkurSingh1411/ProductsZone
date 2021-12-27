@@ -38,13 +38,13 @@ router.post('/upload',upload.single('profile'),(req,res)=>{
 
 
 router.put ("/sb",authenticateToken,Subscription)
-router.get('/',authenticateToken,authpermission('user'),upload.single('profile'),productcontroller.Productslist)
-router.get('/',authenticateToken,authpermission('user'),upload.single('profile'),productcontroller.Productslist)
+router.get('/',authenticateToken,authpermission('Vendor'),upload.single('profile'),productcontroller.Productslist)
+// router.get('/',authenticateToken,authpermission('user'),upload.single('profile'),productcontroller.Productslist)
 router.post('/addproduct',authenticateToken,authpermission('Vendor'),productcontroller.AddUserProduct)
 router.delete('/deleteproduct/:id',authenticateToken,authpermission('Vendor','admin'),productcontroller.DeleteProduct)
 router.put('/updateproduct/:id',authenticateToken,authpermission('Vendor'),productcontroller.UpdateProductById)
 router.get('/prodbyid/:id',authenticateToken,authpermission('Vendor'),productcontroller.GetProductById)
-router.delete('/deleteall',authenticateToken,authpermission("admin"),productcontroller.DeleteAllProducts)
+router.delete('/deleteall',authenticateToken,authpermission("Vendor"),productcontroller.DeleteAllProducts)
 router.get('/remaining',authenticateToken,authpermission("Vendor"),productcontroller.RemainingProducts)
 
 module.exports = router
